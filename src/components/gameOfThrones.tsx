@@ -22,6 +22,8 @@ interface IEpisode {
 }
 
 export default function GameOfThrones(): JSX.Element {
+  //----------------------------------------------------------------------------------------Fetching from API
+
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
 
   useEffect(() => {
@@ -33,26 +35,32 @@ export default function GameOfThrones(): JSX.Element {
     fetchEpisodes();
   }, []);
 
-  const [searchTerm,setSearchTerm] = useState("");
+  //------------------------------------------------------------------------------------------Search Bar Function
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   function handleSearchTermChange(event: ChangeEvent<HTMLInputElement>): void {
-      setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value);
   }
 
-  function matchingEpisodesFunction(searchTerm:string, list: IEpisode[]): IEpisode[] {
-      const matchList: IEpisode[] = [];
-      
-      for(const itemEpisode of list){
-          const lowerName = itemEpisode.name.toLowerCase();
-          const lowerSearch = searchTerm.toLowerCase();
-          if((lowerName).includes(lowerSearch)){
-              matchList.push(itemEpisode);
-          }
-      }
-      return matchList;
-    }
-   const matchingEpisodes = matchingEpisodesFunction(searchTerm,episodes)
+  function matchingEpisodesFunction(
+    searchTerm: string,
+    list: IEpisode[]
+  ): IEpisode[] {
+    const matchList: IEpisode[] = [];
 
+    for (const itemEpisode of list) {
+      const lowerName = (itemEpisode.name + itemEpisode.summary).toLowerCase();
+      const lowerSearch = searchTerm.toLowerCase();
+      if (lowerName.includes(lowerSearch)) {
+        matchList.push(itemEpisode);
+      }
+    }
+    return matchList;
+  }
+  const matchingEpisodes = matchingEpisodesFunction(searchTerm, episodes);
+
+  //------------------------------------------------------------------------------------------Formatting functions
   // const formatSummary = () => {}
 
   const formatSeasonAndEpisode = (season: number, episode: number): string => {
@@ -67,6 +75,7 @@ export default function GameOfThrones(): JSX.Element {
     return `S${returnSeason}E${returnEpisode}`;
   };
 
+  //----------------------------------------------------------------------------------------Mapping episodes
   const mappedEpisodes = matchingEpisodes.map((episode) => (
     <div className="flex-item" key={episode.id}>
       <div>
@@ -83,11 +92,21 @@ export default function GameOfThrones(): JSX.Element {
     </div>
   ));
 
-  return (<>
-   <input value={searchTerm} 
-      onChange={handleSearchTermChange}
-     />
-  <div className="flex-container">{mappedEpisodes}</div>
-  <p> This information was obtained from: <a href= "https://www.tvmaze.com/"> TV Maze</a> </p>
-  </>);
+  //----------------------------------------------------------------------------------------HTML returned
+  return (
+    <>
+      <div className="search-bar">
+        <input value={searchTerm} onChange={handleSearchTermChange} />
+        <p>
+          {mappedEpisodes.length}/{episodes.length} episodes displayed
+        </p>
+      </div>
+      <div className="flex-container">{mappedEpisodes}</div>
+      <p>
+        {" "}
+        This information was obtained from:{" "}
+        <a href="https://www.tvmaze.com/"> TV Maze</a>{" "}
+      </p>
+    </>
+  );
 }
