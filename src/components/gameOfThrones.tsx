@@ -56,7 +56,7 @@ export default function GameOfThrones(): JSX.Element {
         </h1>
         <br />
         <div>
-          <img src={episode.image.medium} alt = ""/>
+          <img src={episode.image.medium} alt="" />
         </div>
         {episode.summary}
       </div>
