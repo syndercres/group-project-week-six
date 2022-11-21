@@ -12,7 +12,8 @@
   border-radius: 4ch;
   border-color: solid black;
   border-style: solid;
-  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8), 5px 5px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8),
+    5px 5px 10px rgba(0, 0, 0, 0.25);
 }
 .flex-container {
   display: flex;
@@ -22,14 +23,14 @@
   list-style: none;
   flex-flow: row wrap;
 }
-.whole-return{
+.whole-return {
   font-family: monospace;
 }
 
-.search-bar{
+.search-bar {
   margin-left: 40px;
 }
-input{
+input {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -48,9 +49,10 @@ input{
   background: e8ecf2;
   color: 73787d;
   border-radius: 9999px;
-  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8), 5px 5px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8),
+    5px 5px 10px rgba(0, 0, 0, 0.25);
 }
-img{
+img {
   border-radius: 10px;
   margin-bottom: 20px;
 }
