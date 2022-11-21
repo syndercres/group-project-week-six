@@ -1,6 +1,6 @@
 import { useEffect, useState, ChangeEvent } from "react";
 import "./gameOfThrones.css";
-
+export { formatSeasonAndEpisode };
 interface IEpisode {
   id: number;
   url: string;
@@ -20,6 +20,18 @@ interface IEpisode {
   summary: string;
   _links: { self: { href: string } };
 }
+
+const formatSeasonAndEpisode = (season: number, episode: number): string => {
+  let returnSeason = `${season}`;
+  let returnEpisode = `${episode}`;
+  if (season < 10) {
+    returnSeason = `0${season}`;
+  }
+  if (episode < 10) {
+    returnEpisode = `0${episode}`;
+  }
+  return `S${returnSeason}E${returnEpisode}`;
+};
 
 export default function GameOfThrones(): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
@@ -71,18 +83,6 @@ export default function GameOfThrones(): JSX.Element {
 
   //------------------------------------------------------------------------------------------Formatting functions
   // const formatSummary = () => {}
-
-  const formatSeasonAndEpisode = (season: number, episode: number): string => {
-    let returnSeason = `${season}`;
-    let returnEpisode = `${episode}`;
-    if (season < 10) {
-      returnSeason = `0${season}`;
-    }
-    if (episode < 10) {
-      returnEpisode = `0${episode}`;
-    }
-    return `S${returnSeason}E${returnEpisode}`;
-  };
 
   //----------------------------------------------------------------------------------------Mapping episodes
   const mappedEpisodes = matchingEpisodes.map((episode) => (
