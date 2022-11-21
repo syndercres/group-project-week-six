@@ -63,5 +63,8 @@ export default function GameOfThrones(): JSX.Element {
     </div>
   ));
 
-  return <div className="flex-container">{mappedEpisodes}</div>;
+  return (<>
+  <div className="flex-container">{mappedEpisodes}</div>
+  <p> This information was obtained from: <a href= "https://www.tvmaze.com/"> TV Maze</a> </p>
+  </>);
 }
