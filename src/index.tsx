@@ -4,7 +4,7 @@ import GameOfThrones from "./components/gameOfThrones";
 
 ReactDOM.render(
   <React.StrictMode>
-   <GameOfThrones/>
+    <GameOfThrones />
   </React.StrictMode>,
   document.getElementById("root")
 );
