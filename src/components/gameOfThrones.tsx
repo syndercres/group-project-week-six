@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import "./gameOfThrones.css";
 
 interface IEpisode {
@@ -33,6 +33,26 @@ export default function GameOfThrones(): JSX.Element {
     fetchEpisodes();
   }, []);
 
+  const [searchTerm,setSearchTerm] = useState("");
+
+  function handleSearchTermChange(event: ChangeEvent<HTMLInputElement>): void {
+      setSearchTerm(event.target.value);
+  }
+
+  function matchingEpisodesFunction(searchTerm:string, list: IEpisode[]): IEpisode[] {
+      const matchList: IEpisode[] = [];
+      
+      for(const itemEpisode of list){
+          const lowerName = itemEpisode.name.toLowerCase();
+          const lowerSearch = searchTerm.toLowerCase();
+          if((lowerName).includes(lowerSearch)){
+              matchList.push(itemEpisode);
+          }
+      }
+      return matchList;
+    }
+   const matchingEpisodes = matchingEpisodesFunction(searchTerm,episodes)
+
   // const formatSummary = () => {}
 
   const formatSeasonAndEpisode = (season: number, episode: number): string => {
@@ -47,7 +67,7 @@ export default function GameOfThrones(): JSX.Element {
     return `S${returnSeason}E${returnEpisode}`;
   };
 
-  const mappedEpisodes = episodes.map((episode) => (
+  const mappedEpisodes = matchingEpisodes.map((episode) => (
     <div className="flex-item" key={episode.id}>
       <div>
         <h1>
@@ -64,6 +84,9 @@ export default function GameOfThrones(): JSX.Element {
   ));
 
   return (<>
+   <input value={searchTerm} 
+      onChange={handleSearchTermChange}
+     />
   <div className="flex-container">{mappedEpisodes}</div>
   <p> This information was obtained from: <a href= "https://www.tvmaze.com/"> TV Maze</a> </p>
   </>);
