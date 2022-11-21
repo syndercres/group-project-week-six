@@ -94,7 +94,7 @@ export default function GameOfThrones(): JSX.Element {
 
   //----------------------------------------------------------------------------------------HTML returned
   return (
-    <>
+    <div className="whole-return">
       <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
         <p>
@@ -107,6 +107,6 @@ export default function GameOfThrones(): JSX.Element {
         This information was obtained from:{" "}
         <a href="https://www.tvmaze.com/"> TV Maze</a>{" "}
       </p>
-    </>
+    </div>
   );
 }
