@@ -60,6 +60,15 @@ export default function GameOfThrones(): JSX.Element {
   }
   const matchingEpisodes = matchingEpisodesFunction(searchTerm, episodes);
 
+  // ------------------------------------------------------------------------------------------ formatting summary
+  const formatSummary = (summary: string): string => {
+    const newSummary = summary
+      .replaceAll(`<p>`, "")
+      .replaceAll(`</p>`, "")
+      .replaceAll(`<br>`, "");
+    return newSummary;
+  };
+
   //------------------------------------------------------------------------------------------Formatting functions
   // const formatSummary = () => {}
 
@@ -87,7 +96,7 @@ export default function GameOfThrones(): JSX.Element {
         <div>
           <img src={episode.image.medium} alt="" />
         </div>
-        {episode.summary}
+        {formatSummary(episode.summary)}
       </div>
     </div>
   ));
