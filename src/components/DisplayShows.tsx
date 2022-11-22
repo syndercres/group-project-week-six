@@ -3,6 +3,10 @@ import { useEffect, useState, ChangeEvent } from "react";
 interface IShow {
   name: string;
   id: number;
+  image: {
+    medium: string;
+    original: string;
+  };
   _links: { self: { href: string } };
 }
 
@@ -32,6 +36,7 @@ export default function DisplayShows(props:any): JSX.Element {
     <button className="flex-item" onClick={() =>handleGoToShow(show._links.self.href)} key={show.id}>
     <div>
       <h1>{show.name}</h1>
+      <img src={show.image.medium} alt="" />
     </div>
     </button>
   ));
