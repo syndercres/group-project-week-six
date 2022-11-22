@@ -12,7 +12,9 @@ export default function App(): JSX.Element {
     <div>
         hello world
         <DisplayShows/>
-        <DisplayEpisodes/>
+        <DisplayEpisodes 
+            showURL = {"https://api.tvmaze.com/shows/83/episodes"}
+        />
     </div>
     )
 }

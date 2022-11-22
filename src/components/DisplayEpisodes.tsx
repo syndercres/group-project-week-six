@@ -34,13 +34,13 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
   return `S${returnSeason}E${returnEpisode}`;
 };
 
-export default function DisplayEpisodes(): JSX.Element {
+export default function DisplayEpisodes(props:any): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
 
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
   useEffect(() => {
     const fetchEpisodes = async () => {
-      const response = await fetch("");
+      const response = await fetch(props.showURL);
       const jsonBody: IEpisode[] = await response.json();
       setEpisodes(jsonBody);
     };
