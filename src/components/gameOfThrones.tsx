@@ -1,5 +1,6 @@
 import { useEffect, useState, ChangeEvent } from "react";
 import "./gameOfThrones.css";
+import "./showDisplay"
 export { formatSeasonAndEpisode };
 interface IEpisode {
   id: number;
@@ -37,10 +38,10 @@ export default function GameOfThrones(): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
 
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
-
+  const [showAPIlink, setShowAPIlink] = useState<string>("https://api.tvmaze.com/shows/82/episodes");
   useEffect(() => {
     const fetchEpisodes = async () => {
-      const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+      const response = await fetch(showAPIlink);
       const jsonBody: IEpisode[] = await response.json();
       setEpisodes(jsonBody);
     };
