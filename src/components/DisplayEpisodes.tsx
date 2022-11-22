@@ -36,16 +36,17 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
 
 export default function DisplayEpisodes(props:any): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
-
+  console.log("display episodes rerendered",props);
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
   useEffect(() => {
     const fetchEpisodes = async () => {
+      console.log("fetched")
       const response = await fetch(props.showURL);
       const jsonBody: IEpisode[] = await response.json();
       setEpisodes(jsonBody);
     };
     fetchEpisodes();
-  }, []);
+  }, [props.showURL]);
 
   //------------------------------------------------------------------------------------------Search Bar Function
 

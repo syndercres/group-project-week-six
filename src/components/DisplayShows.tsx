@@ -7,7 +7,9 @@ interface IShow {
 }
 
 
-export default function DisplayShows(): JSX.Element {
+export default function DisplayShows(props:any): JSX.Element {
+  
+  
   const [Shows, setShows] = useState<IShow[]>([]);
   const [showAPIlink, setShowAPIlink] = useState<string>("https://api.tvmaze.com/shows/82/episodes");
 
@@ -21,8 +23,9 @@ export default function DisplayShows(): JSX.Element {
   }, []);
 
   function handleGoToShow(link:string){
-    console.log(link +"/episodes");
+  
     setShowAPIlink(link + "/episodes");
+    props.handleChangeShowURL(link +"/episodes");
   }
 
   const mappedShows = Shows.map((show) => (
