@@ -1,6 +1,6 @@
 import { useEffect, useState, ChangeEvent } from "react";
-import "./gameOfThrones.css";
-import "./showDisplay"
+
+
 export { formatSeasonAndEpisode };
 interface IEpisode {
   id: number;
@@ -34,14 +34,13 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
   return `S${returnSeason}E${returnEpisode}`;
 };
 
-export default function GameOfThrones(): JSX.Element {
+export default function DisplayEpisodes(): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
 
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
-  const [showAPIlink, setShowAPIlink] = useState<string>("https://api.tvmaze.com/shows/82/episodes");
   useEffect(() => {
     const fetchEpisodes = async () => {
-      const response = await fetch(showAPIlink);
+      const response = await fetch("");
       const jsonBody: IEpisode[] = await response.json();
       setEpisodes(jsonBody);
     };

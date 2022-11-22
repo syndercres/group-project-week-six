@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import GameOfThrones from "./components/gameOfThrones";
-import DisplayShows from "./components/showDisplay";
+import App from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GameOfThrones />
-    <DisplayShows />
+    <App/>
   </React.StrictMode>,
   document.getElementById("root")
 );

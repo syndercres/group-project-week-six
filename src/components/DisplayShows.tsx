@@ -9,6 +9,7 @@ interface IShow {
 
 export default function DisplayShows(): JSX.Element {
   const [Shows, setShows] = useState<IShow[]>([]);
+  const [showAPIlink, setShowAPIlink] = useState<string>("https://api.tvmaze.com/shows/82/episodes");
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -19,12 +20,13 @@ export default function DisplayShows(): JSX.Element {
     fetchShows();
   }, []);
 
-  function handleGoToShow(){
-    console.log("sgdrvkihasebbfkliulasebfgukhyhasevfhaFUKY");
+  function handleGoToShow(link:string){
+    console.log(link +"/episodes");
+    setShowAPIlink(link + "/episodes");
   }
 
   const mappedShows = Shows.map((show) => (
-    <button className="flex-item" onClick={handleGoToShow} key={show.id}>
+    <button className="flex-item" onClick={() =>handleGoToShow(show._links.self.href)} key={show.id}>
     <div>
       <h1>{show.name}</h1>
     </div>

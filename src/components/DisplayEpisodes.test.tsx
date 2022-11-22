@@ -1,4 +1,4 @@
-import { formatSeasonAndEpisode } from "./gameOfThrones";
+import { formatSeasonAndEpisode } from "./DisplayEpisodes";
 
 test("formatSeasonAndEpisode returns an added zero when needed", () => {
   expect(formatSeasonAndEpisode(10, 12)).toBe("S10E12");
