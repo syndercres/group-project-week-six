@@ -10,12 +10,11 @@ interface IShow {
   _links: { self: { href: string } };
 }
 
-
-export default function DisplayShows(props:any): JSX.Element {
-  
-  
+export default function DisplayShows(props: any): JSX.Element {
   const [Shows, setShows] = useState<IShow[]>([]);
-  const [showAPIlink, setShowAPIlink] = useState<string>("https://api.tvmaze.com/shows/82/episodes");
+  const [showAPIlink, setShowAPIlink] = useState<string>(
+    "https://api.tvmaze.com/shows/82/episodes"
+  );
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -26,18 +25,21 @@ export default function DisplayShows(props:any): JSX.Element {
     fetchShows();
   }, []);
 
-  function handleGoToShow(link:string){
-  
+  function handleGoToShow(link: string) {
     setShowAPIlink(link + "/episodes");
-    props.handleChangeShowURL(link +"/episodes");
+    props.handleChangeShowURL(link + "/episodes");
   }
 
   const mappedShows = Shows.map((show) => (
-    <button className="flex-item" onClick={() =>handleGoToShow(show._links.self.href)} key={show.id}>
-    <div>
-      <h1>{show.name}</h1>
-      <img src={show.image.medium} alt="" />
-    </div>
+    <button
+      className="flex-item"
+      onClick={() => handleGoToShow(show._links.self.href)}
+      key={show.id}
+    >
+      <div>
+        <h1>{show.name}</h1>
+        <img src={show.image.medium} alt="" />
+      </div>
     </button>
   ));
 

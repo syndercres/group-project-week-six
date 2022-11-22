@@ -1,6 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
 
-
 export { formatSeasonAndEpisode };
 interface IEpisode {
   id: number;
@@ -34,13 +33,13 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
   return `S${returnSeason}E${returnEpisode}`;
 };
 
-export default function DisplayEpisodes(props:any): JSX.Element {
+export default function DisplayEpisodes(props: any): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
-  console.log("display episodes rerendered",props);
+  console.log("display episodes rerendered", props);
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
   useEffect(() => {
     const fetchEpisodes = async () => {
-      console.log("fetched")
+      console.log("fetched");
       const response = await fetch(props.showURL);
       const jsonBody: IEpisode[] = await response.json();
       setEpisodes(jsonBody);
