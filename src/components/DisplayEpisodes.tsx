@@ -20,6 +20,9 @@ interface IEpisode {
   summary: string;
   _links: { self: { href: string } };
 }
+interface Props {
+  showURL: string;
+}
 
 const formatSeasonAndEpisode = (season: number, episode: number): string => {
   let returnSeason = `${season}`;
@@ -33,7 +36,7 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
   return `S${returnSeason}E${returnEpisode}`;
 };
 
-export default function DisplayEpisodes(props: any): JSX.Element {
+export default function DisplayEpisodes(props: Props): JSX.Element {
   //----------------------------------------------------------------------------------------Fetching from API
   console.log("display episodes rerendered", props);
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
