@@ -15,8 +15,8 @@ export default function App(): JSX.Element {
     console.log(pageView);
   }
 
-  function pageViewToFalse(){
-    setPageView(false)
+  function pageViewToFalse() {
+    setPageView(false);
   }
 
   return (
@@ -25,8 +25,7 @@ export default function App(): JSX.Element {
         <h1>TV Show App</h1>
       </div>
       {pageView ? (
-        <DisplayEpisodes showURL={showURL} handleChangePage={pageViewToFalse}
-         />
+        <DisplayEpisodes showURL={showURL} handleChangePage={pageViewToFalse} />
       ) : (
         <DisplayShows handleChangeShowURL={changeShowURL} />
       )}

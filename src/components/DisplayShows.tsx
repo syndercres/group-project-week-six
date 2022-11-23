@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent} from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 
 interface IShow {
   name: string;
@@ -25,7 +25,7 @@ export default function DisplayShows(props: Props): JSX.Element {
     const matchList: IShow[] = [];
 
     for (const itemShow of list) {
-      const lowerName = (itemShow.name).toLowerCase();
+      const lowerName = itemShow.name.toLowerCase();
       const lowerSearch = searchTerm.toLowerCase();
       if (lowerName.includes(lowerSearch)) {
         matchList.push(itemShow);
@@ -48,7 +48,7 @@ export default function DisplayShows(props: Props): JSX.Element {
   function handleGoToShow(link: string) {
     props.handleChangeShowURL(link + "/episodes");
   }
-  const alphaShows = matchingShows.sort((a,b) => a.name.localeCompare(b.name))
+  const alphaShows = matchingShows.sort((a, b) => a.name.localeCompare(b.name));
   const mappedShows = alphaShows.map((show) => (
     <button
       className="flex-item"
@@ -57,24 +57,22 @@ export default function DisplayShows(props: Props): JSX.Element {
     >
       <div>
         <h1>{show.name}</h1>
-        <div>{show.image.medium !== null &&
-        <img src={show.image.medium} alt="" />}
+        <div>
+          {show.image.medium !== null && <img src={show.image.medium} alt="" />}
         </div>
       </div>
     </button>
   ));
 
-
-
   function handleSearchTermChange(event: ChangeEvent<HTMLInputElement>): void {
     setSearchTerm(event.target.value);
   }
   return (
-  <>
-    <div className="search-bar">
+    <>
+      <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
-    </div>
-  <div className="flex-container">{mappedShows}</div>
-  </>
-  )
+      </div>
+      <div className="flex-container">{mappedShows}</div>
+    </>
+  );
 }

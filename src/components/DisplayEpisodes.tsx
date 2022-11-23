@@ -22,7 +22,7 @@ interface IEpisode {
 }
 interface Props {
   showURL: string;
-  handleChangePage: () => void
+  handleChangePage: () => void;
 }
 
 const formatSeasonAndEpisode = (season: number, episode: number): string => {
@@ -78,7 +78,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
 
   // ------------------------------------------------------------------------------------------ formatting summary
   const formatSummary = (summary: string): string => {
-    const newSummary = summary 
+    const newSummary = summary
       .replaceAll(`<p>`, "")
       .replaceAll(`</p>`, "")
       .replaceAll(`<br>`, "");
@@ -97,14 +97,14 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
           {formatSeasonAndEpisode(episode.season, episode.number)}
         </h1>
         <br />
-        <div>{(episode.image !== null) &&
-        <img src={episode.image.medium} alt="" />}
-        </div> {(episode.summary !== null) &&
-        formatSummary(episode.summary)}   
+        <div>
+          {episode.image !== null && <img src={episode.image.medium} alt="" />}
+        </div>{" "}
+        {episode.summary !== null && formatSummary(episode.summary)}
       </div>
     </div>
   ));
-// some APIs may not contain either the summary or image, so using a conditonal statement means if it is = to null, nothing will happen
+  // some APIs may not contain either the summary or image, so using a conditonal statement means if it is = to null, nothing will happen
   //----------------------------------------------------------------------------------------HTML returned
   return (
     <div className="whole-return">
