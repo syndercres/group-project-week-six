@@ -1,4 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
+import "./DisplayEpisodes.css";
 
 export { formatSeasonAndEpisode };
 interface IEpisode {
@@ -110,7 +111,9 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
     <div className="whole-return">
       <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
-        <button onClick={props.handleChangePage}>Back</button>
+        <button className="back-button" onClick={props.handleChangePage}>
+          Back
+        </button>
         <p>
           {mappedEpisodes.length}/{episodes.length} episodes displayed
         </p>

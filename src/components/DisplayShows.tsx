@@ -1,5 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
-
+import "./DisplayShows.css";
 interface IShow {
   name: string;
   id: number;
@@ -30,7 +30,11 @@ export default function DisplayShows(props: Props): JSX.Element {
     const matchList: IShow[] = [];
 
     for (const itemShow of list) {
-      const lowerName = itemShow.name.toLowerCase();
+      const lowerName = (
+        itemShow.name +
+        itemShow.genres +
+        itemShow.summary
+      ).toLowerCase();
       const lowerSearch = searchTerm.toLowerCase();
       if (lowerName.includes(lowerSearch)) {
         matchList.push(itemShow);
@@ -40,13 +44,17 @@ export default function DisplayShows(props: Props): JSX.Element {
   }
 
   const formatSummary = (summary: string): string => {
-    const newSummary = summary
+    let newSummary = summary
       .replaceAll(`<p>`, "")
       .replaceAll(`</p>`, "")
       .replaceAll(`<br>`, "")
       .replaceAll(`<b>`, "")
       .replaceAll(`</b>`, "")
       .replaceAll(`</br>`, "");
+
+    if (newSummary.length > 800) {
+      newSummary = newSummary.substring(0, 799) + "...read more";
+    }
     return newSummary;
   };
 
@@ -67,21 +75,32 @@ export default function DisplayShows(props: Props): JSX.Element {
   const alphaShows = matchingShows.sort((a, b) => a.name.localeCompare(b.name));
   const mappedShows = alphaShows.map((show) => (
     <button
-      className="flex-item"
+      className="show-item"
       onClick={() => handleGoToShow(show._links.self.href)}
       key={show.id}
     >
       <div>
-        <h1>{show.name}</h1>
-        <div>
-          {show.image.medium !== null && <img src={show.image.medium} alt="" />}
+        <div className="title-image">
+          <h1 className="show-title">{show.name}</h1>
+
+          {show.image.medium !== null && (
+            <img className="show-image" src={show.image.medium} alt="" />
+          )}
         </div>
-        <div>
-          {show.summary !== null && formatSummary(show.summary)}
-          {show.rating !== null && show.rating.average}
-          {show.genres !== null && show.genres}
-          {show.status !== null && show.status}
-          {show.runtime !== null && show.runtime}
+        <div className="show-info">
+          <p className="summary">
+            {show.summary !== null && formatSummary(show.summary)}
+          </p>
+          <br />
+          <ul className="info-list">
+            <li>rating:{show.rating !== null && show.rating.average}</li>
+            <br />
+            <li>genre:{show.genres !== null && show.genres}</li>
+            <br />
+            <li>status:{show.status !== null && show.status}</li>
+            <br />
+            <li>runtime:{show.runtime !== null && show.runtime}-minutes</li>
+          </ul>
         </div>
       </div>
     </button>
@@ -95,7 +114,7 @@ export default function DisplayShows(props: Props): JSX.Element {
       <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
       </div>
-      <div className="flex-container">{mappedShows}</div>
+      <div className="show-container">{mappedShows}</div>
     </>
   );
 }
