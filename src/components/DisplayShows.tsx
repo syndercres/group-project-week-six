@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 
 interface IShow {
   name: string;
@@ -10,11 +10,12 @@ interface IShow {
   _links: { self: { href: string } };
 }
 
-export default function DisplayShows(props: any): JSX.Element {
+interface Props {
+  handleChangeShowURL: (givenShowURL: string) => void;
+}
+
+export default function DisplayShows(props: Props): JSX.Element {
   const [Shows, setShows] = useState<IShow[]>([]);
-  const [showAPIlink, setShowAPIlink] = useState<string>(
-    "https://api.tvmaze.com/shows/82/episodes"
-  );
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -26,7 +27,6 @@ export default function DisplayShows(props: any): JSX.Element {
   }, []);
 
   function handleGoToShow(link: string) {
-    setShowAPIlink(link + "/episodes");
     props.handleChangeShowURL(link + "/episodes");
   }
 

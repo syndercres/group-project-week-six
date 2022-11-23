@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useState } from "react";
 import DisplayEpisodes from "./DisplayEpisodes";
 import DisplayShows from "./DisplayShows";
 import "./App.css";
@@ -24,7 +24,7 @@ export default function App(): JSX.Element {
       {pageView ? (
         <DisplayEpisodes showURL={showURL} />
       ) : (
-        <DisplayShows handleChangeShowURL={changeShowURL} chickenSpeed={17.3} />
+        <DisplayShows handleChangeShowURL={changeShowURL} />
       )}
     </div>
   );
