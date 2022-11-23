@@ -1,5 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
-import "./DisplayShows.css"
+import "./DisplayShows.css";
 interface IShow {
   name: string;
   id: number;
@@ -30,7 +30,11 @@ export default function DisplayShows(props: Props): JSX.Element {
     const matchList: IShow[] = [];
 
     for (const itemShow of list) {
-      const lowerName = itemShow.name.toLowerCase();
+      const lowerName = (
+        itemShow.name +
+        itemShow.genres +
+        itemShow.summary
+      ).toLowerCase();
       const lowerSearch = searchTerm.toLowerCase();
       if (lowerName.includes(lowerSearch)) {
         matchList.push(itemShow);
@@ -40,13 +44,17 @@ export default function DisplayShows(props: Props): JSX.Element {
   }
 
   const formatSummary = (summary: string): string => {
-    const newSummary = summary
+    let newSummary = summary
       .replaceAll(`<p>`, "")
       .replaceAll(`</p>`, "")
       .replaceAll(`<br>`, "")
       .replaceAll(`<b>`, "")
       .replaceAll(`</b>`, "")
       .replaceAll(`</br>`, "");
+
+    if (newSummary.length > 800) {
+      newSummary = newSummary.substring(0, 799) + "...read more";
+    }
     return newSummary;
   };
 
@@ -72,27 +80,28 @@ export default function DisplayShows(props: Props): JSX.Element {
       key={show.id}
     >
       <div>
-      <div className="title-image">
-        <h1 className="show-title">{show.name}</h1>
-        
-          {show.image.medium !== null && <img className="show-image" src={show.image.medium} alt="" />}
-          </div>
-        <div className="show-info">
-         
-        <p className="summary">{show.summary !== null && formatSummary(show.summary)}</p>
-          <br />
-         <ul className="info-list">
+        <div className="title-image">
+          <h1 className="show-title">{show.name}</h1>
 
-          <li>rating:{show.rating !== null && show.rating.average}</li>
+          {show.image.medium !== null && (
+            <img className="show-image" src={show.image.medium} alt="" />
+          )}
+        </div>
+        <div className="show-info">
+          <p className="summary">
+            {show.summary !== null && formatSummary(show.summary)}
+          </p>
           <br />
-          <li>genre:{show.genres !== null && show.genres}</li>
-          <br />
-          <li>status:{show.status !== null && show.status}</li>
-          <br />
-          <li>runtime:{show.runtime !== null && show.runtime}-minutes</li>
+          <ul className="info-list">
+            <li>rating:{show.rating !== null && show.rating.average}</li>
+            <br />
+            <li>genre:{show.genres !== null && show.genres}</li>
+            <br />
+            <li>status:{show.status !== null && show.status}</li>
+            <br />
+            <li>runtime:{show.runtime !== null && show.runtime}-minutes</li>
           </ul>
         </div>
-      
       </div>
     </button>
   ));

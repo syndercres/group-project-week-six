@@ -2,7 +2,6 @@ import { useState } from "react";
 import DisplayEpisodes from "./DisplayEpisodes";
 import DisplayShows from "./DisplayShows";
 
-
 export default function App(): JSX.Element {
   const [showURL, setShowURL] = useState<string>(
     "https://api.tvmaze.com/shows/438/episodes"
