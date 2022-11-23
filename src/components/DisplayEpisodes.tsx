@@ -1,4 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
+import "./DisplayEpisodes.css";
 
 export { formatSeasonAndEpisode };
 interface IEpisode {
