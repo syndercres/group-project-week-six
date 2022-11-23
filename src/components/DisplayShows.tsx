@@ -8,6 +8,11 @@ interface IShow {
     original: string;
   };
   _links: { self: { href: string } };
+  genres: string;
+  status: string;
+  runtime: number;
+  rating: { average: number };
+  summary: string;
 }
 
 interface Props {
@@ -34,6 +39,17 @@ export default function DisplayShows(props: Props): JSX.Element {
     return matchList;
   }
 
+  const formatSummary = (summary: string): string => {
+    const newSummary = summary
+      .replaceAll(`<p>`, "")
+      .replaceAll(`</p>`, "")
+      .replaceAll(`<br>`, "")
+      .replaceAll(`<b>`, "")
+      .replaceAll(`</b>`, "")
+      .replaceAll(`</br>`, "");
+    return newSummary;
+  };
+
   const matchingShows = matchingEpisodesFunction(searchTerm, shows);
 
   useEffect(() => {
@@ -59,6 +75,13 @@ export default function DisplayShows(props: Props): JSX.Element {
         <h1>{show.name}</h1>
         <div>
           {show.image.medium !== null && <img src={show.image.medium} alt="" />}
+        </div>
+        <div>
+          {show.summary !== null && formatSummary(show.summary)}
+          {show.rating !== null && show.rating.average}
+          {show.genres !== null && show.genres}
+          {show.status !== null && show.status}
+          {show.runtime !== null && show.runtime}
         </div>
       </div>
     </button>
