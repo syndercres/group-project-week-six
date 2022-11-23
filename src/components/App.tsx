@@ -15,14 +15,18 @@ export default function App(): JSX.Element {
     console.log(pageView);
   }
 
+  function pageViewToFalse(){
+    setPageView(false)
+  }
+
   return (
     <div>
       <div className="title">
         <h1>TV Show App</h1>
       </div>
-
       {pageView ? (
-        <DisplayEpisodes showURL={showURL} />
+        <DisplayEpisodes showURL={showURL} handleChangePage={pageViewToFalse}
+         />
       ) : (
         <DisplayShows handleChangeShowURL={changeShowURL} />
       )}

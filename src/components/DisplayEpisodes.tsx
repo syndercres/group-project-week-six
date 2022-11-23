@@ -22,6 +22,7 @@ interface IEpisode {
 }
 interface Props {
   showURL: string;
+  handleChangePage: () => void
 }
 
 const formatSeasonAndEpisode = (season: number, episode: number): string => {
@@ -109,6 +110,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
     <div className="whole-return">
       <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
+        <button onClick={props.handleChangePage}>Back</button>
         <p>
           {mappedEpisodes.length}/{episodes.length} episodes displayed
         </p>

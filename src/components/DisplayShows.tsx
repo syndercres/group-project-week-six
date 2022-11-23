@@ -29,8 +29,8 @@ export default function DisplayShows(props: Props): JSX.Element {
   function handleGoToShow(link: string) {
     props.handleChangeShowURL(link + "/episodes");
   }
-
-  const mappedShows = Shows.map((show) => (
+  const alphaShows = Shows.sort((a,b) => a.name.localeCompare(b.name))
+  const mappedShows = alphaShows.map((show) => (
     <button
       className="flex-item"
       onClick={() => handleGoToShow(show._links.self.href)}
