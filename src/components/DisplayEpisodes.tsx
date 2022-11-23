@@ -22,6 +22,7 @@ interface IEpisode {
 }
 interface Props {
   showURL: string;
+  handleChangePage: () => void;
 }
 
 const formatSeasonAndEpisode = (season: number, episode: number): string => {
@@ -97,18 +98,19 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
         </h1>
         <br />
         <div>
-          <img src={episode.image.medium} alt="" />
-        </div>
-        {formatSummary(episode.summary)}
+          {episode.image !== null && <img src={episode.image.medium} alt="" />}
+        </div>{" "}
+        {episode.summary !== null && formatSummary(episode.summary)}
       </div>
     </div>
   ));
-
+  // some APIs may not contain either the summary or image, so using a conditonal statement means if it is = to null, nothing will happen
   //----------------------------------------------------------------------------------------HTML returned
   return (
     <div className="whole-return">
       <div className="search-bar">
         <input value={searchTerm} onChange={handleSearchTermChange} />
+        <button onClick={props.handleChangePage}>Back</button>
         <p>
           {mappedEpisodes.length}/{episodes.length} episodes displayed
         </p>
