@@ -110,7 +110,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
   return (
     <div className="whole-return">
       <div className="search-bar">
-        <input  placeholder="enter episode name" value={searchTerm} onChange={handleSearchTermChange} />
+        <input  placeholder="  Enter episode name" value={searchTerm} onChange={handleSearchTermChange} />
         <button className="back-button" onClick={props.handleChangePage}>
           Back
         </button>
