@@ -5,7 +5,7 @@
   margin: 0;
   list-style: none;
   flex-flow: row wrap;
-  color: rgb(49, 46, 46) ;
+  color: rgb(49, 46, 46);
 }
 
 .show-item {
@@ -67,7 +67,7 @@
   height: 405px;
 }
 
-.show-image{
+.show-image {
   max-width: 80%;
   height: auto;
 }

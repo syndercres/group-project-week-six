@@ -112,7 +112,11 @@ export default function DisplayShows(props: Props): JSX.Element {
   return (
     <>
       <div className="search-bar">
-        <input  placeholder="  Enter show name" value={searchTerm} onChange={handleSearchTermChange} />
+        <input
+          placeholder="  Enter show name"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
       </div>
       <div className="show-container">{mappedShows}</div>
     </>

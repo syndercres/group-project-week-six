@@ -79,10 +79,13 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
 
   // ------------------------------------------------------------------------------------------ formatting summary
   const formatSummary = (summary: string): string => {
-    const newSummary = summary
+    let newSummary = summary
       .replaceAll(`<p>`, "")
       .replaceAll(`</p>`, "")
       .replaceAll(`<br>`, "");
+    if (newSummary.length > 300) {
+      newSummary = newSummary.substring(0, 299) + "...read more";
+    }
     return newSummary;
   };
 
@@ -110,7 +113,11 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
   return (
     <div className="whole-return">
       <div className="search-bar">
-        <input  placeholder="  Enter episode name" value={searchTerm} onChange={handleSearchTermChange} />
+        <input
+          placeholder="  Enter episode name"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
         <button className="back-button" onClick={props.handleChangePage}>
           Back
         </button>
