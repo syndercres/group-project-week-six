@@ -62,7 +62,7 @@ export default function DisplayShows(props: Props): JSX.Element {
 
   useEffect(() => {
     const fetchShows = async () => {
-      const response = await fetch("http://api.tvmaze.com/shows?page=1");
+      const response = await fetch("https://api.tvmaze.com/shows?page=1");
       const jsonBody: IShow[] = await response.json();
       setShows(jsonBody);
     };
