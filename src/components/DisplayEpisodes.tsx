@@ -2,6 +2,8 @@ import { useEffect, useState, ChangeEvent } from "react";
 import "./DisplayEpisodes.css";
 
 export { formatSeasonAndEpisode };
+
+//------------------------------------------------------------------------------------------IEpisode Interface Declaration
 interface IEpisode {
   id: number;
   url: string;
@@ -21,11 +23,14 @@ interface IEpisode {
   summary: string;
   _links: { self: { href: string } };
 }
+
+//------------------------------------------------------------------------------------------Declaring Prop Interface
 interface Props {
   showURL: string;
   handleChangePage: () => void;
 }
 
+//------------------------------------------------------------------------------------------Formatting to S01E01 format
 const formatSeasonAndEpisode = (season: number, episode: number): string => {
   let returnSeason = `${season}`;
   let returnEpisode = `${episode}`;
@@ -38,8 +43,20 @@ const formatSeasonAndEpisode = (season: number, episode: number): string => {
   return `S${returnSeason}E${returnEpisode}`;
 };
 
+// -----------------------------------------------------------------------------------------formatting summary to cap length
+const formatSummary = (summary: string): string => {
+  let newSummary = summary
+    .replaceAll(`<p>`, "")
+    .replaceAll(`</p>`, "")
+    .replaceAll(`<br>`, "");
+  if (newSummary.length > 300) {
+    newSummary = newSummary.substring(0, 299) + "...read more";
+  }
+  return newSummary;
+};
+//------------------------------------------------------------------------------------------Declaring react element DisplayEpisodes
 export default function DisplayEpisodes(props: Props): JSX.Element {
-  //----------------------------------------------------------------------------------------Fetching from API
+  //----------------------------------------------------------------------------------------Fetching episodes from API
   console.log("display episodes rerendered", props);
   const [episodes, setEpisodes] = useState<IEpisode[]>([]);
   useEffect(() => {
@@ -52,7 +69,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
     fetchEpisodes();
   }, [props.showURL]);
 
-  //------------------------------------------------------------------------------------------Search Bar Function
+  //----------------------------------------------------------------------------------------Search Bar Function
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -77,22 +94,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
   }
   const matchingEpisodes = matchingEpisodesFunction(searchTerm, episodes);
 
-  // ------------------------------------------------------------------------------------------ formatting summary
-  const formatSummary = (summary: string): string => {
-    let newSummary = summary
-      .replaceAll(`<p>`, "")
-      .replaceAll(`</p>`, "")
-      .replaceAll(`<br>`, "");
-    if (newSummary.length > 300) {
-      newSummary = newSummary.substring(0, 299) + "...read more";
-    }
-    return newSummary;
-  };
-
-  //------------------------------------------------------------------------------------------Formatting functions
-  // const formatSummary = () => {}
-
-  //----------------------------------------------------------------------------------------Mapping episodes
+  //----------------------------------------------------------------------------------------Mapping episodes to cards (flex)
   const mappedEpisodes = matchingEpisodes.map((episode) => (
     <div className="flex-item" key={episode.id}>
       <div>
@@ -109,7 +111,7 @@ export default function DisplayEpisodes(props: Props): JSX.Element {
     </div>
   ));
   // some APIs may not contain either the summary or image, so using a conditonal statement means if it is = to null, nothing will happen
-  //----------------------------------------------------------------------------------------HTML returned
+  //----------------------------------------------------------------------------------------HTML returned from JSX Element
   return (
     <div className="whole-return">
       <div className="search-bar">

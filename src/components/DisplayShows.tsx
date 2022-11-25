@@ -1,5 +1,7 @@
 import { useEffect, useState, ChangeEvent } from "react";
 import "./DisplayShows.css";
+
+//------------------------------------------------------------------------------------------Declaring IShow interface
 interface IShow {
   name: string;
   id: number;
@@ -15,14 +17,16 @@ interface IShow {
   summary: string;
 }
 
+//------------------------------------------------------------------------------------------Declaring props interface
 interface Props {
   handleChangeShowURL: (givenShowURL: string) => void;
 }
 
+//------------------------------------------------------------------------------------------Declaration of JSX Element DisplayShows
 export default function DisplayShows(props: Props): JSX.Element {
   const [shows, setShows] = useState<IShow[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  //----------------------------------------------------------------------------------------Search-bar function
   function matchingEpisodesFunction(
     searchTerm: string,
     list: IShow[]
@@ -42,7 +46,7 @@ export default function DisplayShows(props: Props): JSX.Element {
     }
     return matchList;
   }
-
+  //----------------------------------------------------------------------------------------Removing HTML tags from summary and capping length
   const formatSummary = (summary: string): string => {
     let newSummary = summary
       .replaceAll(`<p>`, "")
@@ -59,7 +63,7 @@ export default function DisplayShows(props: Props): JSX.Element {
   };
 
   const matchingShows = matchingEpisodesFunction(searchTerm, shows);
-
+  //----------------------------------------------------------------------------------------Fetching Shows from API
   useEffect(() => {
     const fetchShows = async () => {
       const response = await fetch("https://api.tvmaze.com/shows?page=1");
@@ -72,6 +76,8 @@ export default function DisplayShows(props: Props): JSX.Element {
   function handleGoToShow(link: string) {
     props.handleChangeShowURL(link + "/episodes");
   }
+
+  //----------------------------------------------------------------------------------------Mapping Shows Alphabetically
   const alphaShows = matchingShows.sort((a, b) => a.name.localeCompare(b.name));
   const mappedShows = alphaShows.map((show) => (
     <button
@@ -109,6 +115,8 @@ export default function DisplayShows(props: Props): JSX.Element {
   function handleSearchTermChange(event: ChangeEvent<HTMLInputElement>): void {
     setSearchTerm(event.target.value);
   }
+
+  //----------------------------------------------------------------------------------------HTML returned
   return (
     <>
       <div className="search-bar">
